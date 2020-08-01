@@ -150,7 +150,7 @@ instance Binary Element where
     case elementContent el of
       SequenceContent s -> writeSequence (elementVL el) s
       BytesContent bs -> putByteString bs
-      FragmentContent _ -> fail "Fragment content is not supported for writing."
+      FragmentContent _ -> error "Fragment content is not supported for writing."
 
 readSequence :: VL -> Get Sequence
 readSequence UndefinedValueLength = do
@@ -278,6 +278,9 @@ writeObjectToFile path = BL.writeFile path . writeObject
 
 -- Smart constructors for DICOM objects
 -- TODO: some of these constructors could benefit from better types
+
+instance Semigroup Object where
+  (Object a1) <> (Object a2) = Object $ a1 ++ a2
 
 instance Monoid Object where
   mempty = Object []

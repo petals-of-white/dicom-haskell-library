@@ -22,6 +22,7 @@ import Data.DICOM.Object
 import Data.DICOM.Tag
 import Data.DICOM.VL
 import Data.DICOM.VR
+import Prelude hiding ((<>))
 
 import qualified Data.ByteString.Char8 as BC
 
