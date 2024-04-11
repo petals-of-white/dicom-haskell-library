@@ -19,12 +19,14 @@ library
                        Data.DICOM.Pretty,
                        Data.DICOM.Tag,
                        Data.DICOM.VL,
-                       Data.DICOM.VR
+                       Data.DICOM.VR,
+                       Data.DICOM.Utilities
   build-depends:       base,
                        time,
                        bytestring,
                        binary,
+                       containers,
                        pretty,
                        safe
   hs-source-dirs:      src
-  default-language:    Haskell98
+  default-language:    GHC2021

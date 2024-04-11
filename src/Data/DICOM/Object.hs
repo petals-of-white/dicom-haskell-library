@@ -12,7 +12,7 @@
 --
 -----------------------------------------------------------------------------
 
-{-# LANGUAGE PatternSynonyms #-}
+
 
 module Data.DICOM.Object
   ( ElementContent(..)

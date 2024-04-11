@@ -9,7 +9,6 @@
 -- Portability :
 --
 -----------------------------------------------------------------------------
-
 {-# LANGUAGE PatternSynonyms #-}
 
 module Data.DICOM.Tag
@@ -24,16 +23,22 @@ module Data.DICOM.Tag
   , pattern ItemDelimitationItem
   , pattern SequenceDelimitationItem
   , pattern PixelData
-
+  , pattern Rows
+  , pattern Columns
+  , pattern RescaleIntercept
+  , pattern RescaleSlope
+  , pattern SamplesPerPixel
+  , pattern PhotometricInterpretation
+  , pattern BitsAllocated
   , tag
   ) where
 
-import Data.Word
-import Data.Binary
-import Data.Binary.Get
-import Data.Binary.Put
+import           Data.Binary
+import           Data.Binary.Get
+import           Data.Binary.Put
+import           Data.Word
 
-import Control.Applicative
+import           Control.Applicative
 
 newtype TagGroup = TagGroup { runTagGroup :: Word16 } deriving (Show, Eq, Ord)
 
@@ -60,8 +65,26 @@ instance Binary Tag where
     put (tagGroup t)
     put (tagElement t)
 
--- Special tags
 
+-- Smart constructors
+
+tag :: TagGroup -> TagElement -> Tag
+tag = Tag
+
+
+-- tags
+pattern Rows = Tag (TagGroup 0x0028) (TagElement 0x0010)
+pattern Columns = Tag (TagGroup 0x0028) (TagElement 0x0011)
+pattern BitsAllocated = Tag (TagGroup 0x0028) (TagElement 0x0100)
+pattern BitsStored = Tag (TagGroup 0x0028) (TagElement 0x0101)
+pattern HighBit = Tag (TagGroup 0x0028) (TagElement 0x0102)
+pattern SamplesPerPixel = Tag (TagGroup 0x0028) (TagElement 0x0002)
+pattern PhotometricInterpretation = Tag (TagGroup 0x0028) (TagElement 0x0004)
+pattern RescaleIntercept = Tag (TagGroup 0x0028) (TagElement 0x1052)
+pattern RescaleSlope = Tag (TagGroup 0x0028) (TagElement 0x1053)
+
+-- Special tags
+pattern SequenceGroup :: TagGroup
 pattern SequenceGroup                = TagGroup 0xFFFE
 
 pattern Item                         = Tag SequenceGroup (TagElement 0xE000)
@@ -70,7 +93,3 @@ pattern SequenceDelimitationItem     = Tag SequenceGroup (TagElement 0xE0DD)
 
 pattern PixelData                    = Tag (TagGroup 0x7FE0) (TagElement 0x0010)
 
--- Smart constructors
-
-tag :: TagGroup -> TagElement -> Tag
-tag = Tag
