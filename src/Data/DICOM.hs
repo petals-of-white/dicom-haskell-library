@@ -20,3 +20,4 @@ import Data.DICOM.VR     as D
 import Data.DICOM.Tag    as D
 import Data.DICOM.Object as D
 import Data.DICOM.Pretty as D
+import Data.DICOM.Utilities as D

@@ -4,7 +4,11 @@ import           Data.Binary           as Binary (decodeOrFail)
 import qualified Data.ByteString       as BS
 import qualified Data.ByteString.Char8 as BSChar
 import           Data.ByteString.Lazy  as LBS (fromStrict)
-import           Data.DICOM            as DicomList
+import           Data.DICOM.Object
+import           Data.DICOM.VL
+import           Data.DICOM.VR
+import Data.DICOM.Tag
+import           Control.Exception     (Exception)
 import           Data.List             as List (delete)
 import           Data.Map              as Map
 import           Data.Word
@@ -18,7 +22,7 @@ type BitsAllocated = Word16
 
 type ElementMap = Map Tag (VL, VR, ElementContent)
 
-data ElementError = NotFound Tag String | ParseError Tag String | ContentError Tag ElementContent
+data ElementError = NotFound Tag String | ParseError Tag String | ContentError Tag ElementContent deriving Show
 
 bytesContent :: ElementContent -> Maybe BS.ByteString
 bytesContent (BytesContent content) = Just content
