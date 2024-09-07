@@ -30,6 +30,7 @@ module Data.DICOM.Tag
   , pattern SamplesPerPixel
   , pattern PhotometricInterpretation
   , pattern BitsAllocated
+  , pattern PixelRepresentation
   , tag
   ) where
 
@@ -82,6 +83,7 @@ pattern SamplesPerPixel = Tag (TagGroup 0x0028) (TagElement 0x0002)
 pattern PhotometricInterpretation = Tag (TagGroup 0x0028) (TagElement 0x0004)
 pattern RescaleIntercept = Tag (TagGroup 0x0028) (TagElement 0x1052)
 pattern RescaleSlope = Tag (TagGroup 0x0028) (TagElement 0x1053)
+pattern PixelRepresentation = Tag (TagGroup 0x0028) (TagElement 0x0103)
 
 -- Special tags
 pattern SequenceGroup :: TagGroup
